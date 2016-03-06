@@ -47,4 +47,29 @@ public class pos {
         }
         return cartItems;
     }
+
+    public static ArrayList<receiptItem> countingPromotions(ArrayList<cartItem> cartItems , ArrayList<promotion> promotions){
+        double saved = 0;
+        ArrayList<receiptItem> receiptItems = new ArrayList<receiptItem>();
+        for (int i = 0; i < cartItems.size(); i++) {
+            if("BUY_TWO_GET_ONE_FREE".equals(getPromotionType(promotions,cartItems.get(i).item.barcode))){
+                saved = (int)(cartItems.get(i).count / 3.0)*cartItems.get(i).item.price;
+            }else{
+                saved = 0;
+            }
+            receiptItems.add(new receiptItem(cartItems.get(i),saved));
+        }
+        return receiptItems;
+    }
+
+    private  static String getPromotionType(ArrayList<promotion> promotions , String barcode){
+        for (int i = 0; i < promotions.size() ; i++) {
+            for (int j = 0; j < promotions.get(i).barcodes.length ; j++) {
+                if(promotions.get(i).barcodes[j].equals(barcode)){
+                    return promotions.get(i).type;
+                }
+            }
+        }
+        return "";
+    }
 }
