@@ -35,4 +35,16 @@ public class pos {
         }
         return -1;
     }
+
+    public static ArrayList<cartItem> getDetails(ArrayList<good> goods ,ArrayList<item> items) {
+        ArrayList<cartItem> cartItems = new ArrayList<cartItem>();
+        for (int i = 0; i < goods.size() ; i++) {
+            for (int j = 0; j <items.size() ; j++) {
+                if (goods.get(i).barcode.equals(items.get(j).barcode)){
+                    cartItems.add(new cartItem(items.get(i),goods.get(i).count));
+                }
+            }
+        }
+        return cartItems;
+    }
 }
