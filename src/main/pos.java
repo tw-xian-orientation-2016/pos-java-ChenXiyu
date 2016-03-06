@@ -72,4 +72,25 @@ public class pos {
         }
         return "";
     }
+
+    public static String format(ArrayList<receiptItem> receiptItes){
+        String result = "***<没钱赚商店>收据***\n";
+        double total = 0 , totalSaved = 0;
+        double subtotal;
+        for (int i = 0; i < receiptItes.size(); i++) {
+            subtotal = 0;
+            result += "名称：" + receiptItes.get(i).cartitem.item.name + "，";
+            result += "数量：" + receiptItes.get(i).cartitem.count + receiptItes.get(i).cartitem.item.unit + "，";
+            result += "单价：" + receiptItes.get(i).cartitem.item.price + "（元）" + "，";
+            subtotal = (receiptItes.get(i).cartitem.item.price  * receiptItes.get(i).cartitem.count - receiptItes.get(i).saved);
+            result += "小计：" +subtotal + "（元）" + "\n";
+            total += subtotal;
+            totalSaved += receiptItes.get(i).saved;
+        }
+        result += "----------------------\n";
+        result += "总计：" + total + "\n";
+        result += "节省：" + totalSaved +"\n";
+        result += "**********************\n";
+        return result;
+    }
 }
